@@ -1,33 +1,31 @@
-import React, {useState} from 'react'
+import React from 'react'
+import MUIDataTable, {MUIDataTableColumn} from "mui-datatables";
 
-import {List, ListItem, ListItemText, ListItemIcon, Collapse} from '@material-ui/core'
-import InboxIcon from '@material-ui/icons/Inbox'
-import {ExpandMore, ExpandLess} from '@material-ui/icons'
+type User = {
+  name: string, company: string, city: string, state: string;
+}
+
+const columns: MUIDataTableColumn[] = [
+  {name: "name", label: "Name", options: {filter: true, sort: true,}},
+  {name: "company", label: "Company", options: {filter: true, sort: false,}},
+  {name: "city", label: "City", options: {filter: true, sort: false,}},
+  {name: "state", label: "State", options: {filter: true, sort: false,}},
+]
+
+const users: User[] = [
+  {name: "Joe James", company: "Test Corp", city: "Yonkers", state: "NY"},
+  {name: "John Walsh", company: "Test Corp", city: "Hartford", state: "CT"},
+  {name: "Bob Herm", company: "Test Corp", city: "Tampa", state: "FL"},
+  {name: "James Houston", company: "Test Corp", city: "Dallas", state: "TX"},
+]
 
 export default function MyList() {
-  const [open, setOpen] = useState(false)
-
-  return <div>
-    <List>
-      <ListItem button onClick={() => setOpen(!open)}>
-        <ListItemIcon>
-          <InboxIcon/>
-        </ListItemIcon>
-        <ListItemText primary='Hello'/>
-        {
-          open ? <ExpandLess/> : <ExpandMore/>
-        }
-      </ListItem>
-      <Collapse in={open}>
-        <List>
-          <ListItem>
-            <ListItemText primary='typescript'/>
-          </ListItem>
-          <ListItem>
-            <ListItemText primary='material-ui'/>
-          </ListItem>
-        </List>
-      </Collapse>
-    </List>
-  </div>
+  return <MUIDataTable
+    title={"Employee List"}
+    data={users}
+    columns={columns}
+    options={{
+      filterType: 'checkbox',
+    }}
+  />
 }

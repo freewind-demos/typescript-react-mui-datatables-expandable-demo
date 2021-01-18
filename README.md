@@ -1,7 +1,7 @@
-TypeScript React "material-ui" Demo
+TypeScript React "mui-datatables" Demo
 ===================================
 
-如何使用TypeScript来写"material-ui"
+基于material-ui的开源数据表
 
 ```
 npm install
