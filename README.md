@@ -1,7 +1,7 @@
-TypeScript React "mui-datatables" Demo
+TypeScript React "mui-datatables" Expandable Demo
 ===================================
 
-基于material-ui的开源数据表
+某一行是否可以展开细节内容
 
 ```
 npm install

@@ -1,5 +1,6 @@
 import React from 'react'
 import MUIDataTable, {MUIDataTableColumn} from "mui-datatables";
+import {TableCell, TableRow} from '@material-ui/core';
 
 type User = {
   name: string, company: string, city: string, state: string;
@@ -19,13 +20,40 @@ const users: User[] = [
   {name: "James Houston", company: "Test Corp", city: "Dallas", state: "TX"},
 ]
 
-export default function MyList() {
+export default function Hello() {
   return <MUIDataTable
     title={"Employee List"}
     data={users}
     columns={columns}
     options={{
-      filterType: 'checkbox',
+      filter: true,
+      filterType: 'dropdown',
+      responsive: 'standard',
+      expandableRows: true,
+      expandableRowsHeader: false,
+      expandableRowsOnClick: true,
+      isRowExpandable: (dataIndex, expandedRows) => {
+        console.log('### isRowExpandable', {dataIndex, expandedRows});
+        // if (dataIndex === 3 || dataIndex === 4) return false;
+        //
+        // // Prevent expand/collapse of any row if there are 4 rows expanded already (but allow those already expanded to be collapsed)
+        // if (expandedRows.data.length > 4 && expandedRows.data.filter(d => d.dataIndex === dataIndex).length === 0) return false;
+        return true;
+      },
+      rowsExpanded: [0, 1],
+      renderExpandableRow: (rowData, rowMeta) => {
+        const colSpan = rowData.length + 1;
+        return (
+          <TableRow>
+            <TableCell colSpan={colSpan}>
+              <div>Custom expandable row option.</div>
+              <div>rowData={JSON.stringify(rowData)}</div>
+              <div>rowMeta={JSON.stringify(rowMeta)}</div>
+            </TableCell>
+          </TableRow>
+        );
+      },
+      onRowExpansionChange: (curExpanded, allExpanded, rowsExpanded) => console.log(curExpanded, allExpanded, rowsExpanded)
     }}
-  />
-}
+      />
+    }
